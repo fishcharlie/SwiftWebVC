@@ -11,6 +11,7 @@ import WebKit
 public protocol SwiftWebVCDelegate: class {
     func didStartLoading()
     func didFinishLoading(success: Bool)
+    func willClose()
 }
 
 public class SwiftWebVC: UIViewController {
@@ -256,6 +257,7 @@ public class SwiftWebVC: UIViewController {
     func doneButtonTapped() {
         closing = true
         UINavigationBar.appearance().barStyle = storedStatusColor!
+        self.delegate?.willClose()
         self.dismiss(animated: true, completion: nil)
     }
 
