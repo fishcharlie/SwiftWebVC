@@ -258,7 +258,9 @@ public class SwiftWebVC: UIViewController {
         closing = true
         UINavigationBar.appearance().barStyle = storedStatusColor!
         self.delegate?.willClose()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwiftWebVCViewClosed"), object: nil)
+        })
     }
 
     // MARK: - Class Methods
