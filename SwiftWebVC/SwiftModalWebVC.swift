@@ -24,6 +24,11 @@ public class SwiftModalWebVC: UINavigationController {
         self.init(pageURL: URL(string: urlString)!, theme: theme)
     }
     
+    public convenience init(urlString: String, theme: SwiftModalWebVCTheme, closeNotification: Bool) {
+        self.init(pageURL: URL(string: urlString)!, theme: theme, closeNotification: closeNotification)
+    }
+
+    
     public convenience init(pageURL: URL) {
         self.init(request: URLRequest(url: pageURL))
     }
@@ -32,9 +37,15 @@ public class SwiftModalWebVC: UINavigationController {
         self.init(request: URLRequest(url: pageURL), theme: theme)
     }
     
-    public init(request: URLRequest, theme: SwiftModalWebVCTheme = .lightBlue) {
+    public convenience init(pageURL: URL, theme: SwiftModalWebVCTheme, closeNotification: Bool) {
+        self.init(request: URLRequest(url: pageURL), theme: theme, closeNotification: closeNotification)
+    }
+
+    
+    public init(request: URLRequest, theme: SwiftModalWebVCTheme = .lightBlue, closeNotification: Bool = true) {
         let webViewController = SwiftWebVC(aRequest: request)
         webViewController.storedStatusColor = UINavigationBar.appearance().barStyle
+        webViewController.sendCloseNotification = closeNotification
 
         let doneButton = UIBarButtonItem(image: SwiftWebVC.bundledImage(named: "SwiftWebVCDismiss"),
                                          style: UIBarButtonItemStyle.plain,
