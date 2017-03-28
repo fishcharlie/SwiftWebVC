@@ -21,6 +21,7 @@ public class SwiftWebVC: UIViewController {
     var buttonColor: UIColor? = nil
     var titleColor: UIColor? = nil
     var closing: Bool! = false
+    var sendCloseNotification: Bool! = true
     
     lazy var backBarButtonItem: UIBarButtonItem =  {
         var tempBackBarButtonItem = UIBarButtonItem(image: SwiftWebVC.bundledImage(named: "SwiftWebVCBack"),
@@ -259,7 +260,9 @@ public class SwiftWebVC: UIViewController {
         UINavigationBar.appearance().barStyle = storedStatusColor!
         self.delegate?.willClose()
         self.dismiss(animated: true, completion: {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwiftWebVCViewClosed"), object: nil)
+            if sendCloseNotification == true {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwiftWebVCViewClosed"), object: nil)
+            }
         })
     }
 
