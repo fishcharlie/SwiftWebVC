@@ -134,6 +134,14 @@ public class SwiftWebVC: UIViewController {
         navBarTitle.shadowOffset = CGSize(width: 0, height: 1);
         navBarTitle.font = UIFont(name: "HelveticaNeue-Medium", size: 17.0)
         
+        if webView.loading == false {
+            webView.evaluateJavaScript("document.title", completionHandler: {(response, error) in
+                self.navBarTitle.text = response as! String?
+                self.navBarTitle.sizeToFit()
+                self.updateToolbarItems()
+            })
+        }
+        
         navigationItem.titleView = navBarTitle;
         
         super.viewWillAppear(true)
